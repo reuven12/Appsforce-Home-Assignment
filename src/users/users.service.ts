@@ -9,11 +9,11 @@ import { AxiosResponse } from 'axios';
 export class UsersService {
   constructor(private readonly httpService: HttpService) {}
 
-  private readonly externalApiUrl =
+  private readonly externalUsersApiUrl =
     'https://jsonplaceholder.typicode.com/users';
 
   fetchUsers(): Observable<AxiosResponse<any[]>> {
-    return this.httpService.get<any[]>(this.externalApiUrl).pipe(
+    return this.httpService.get<any[]>(this.externalUsersApiUrl).pipe(
       catchError((error) => {
         console.error('Error fetching users:', error);
         return throwError(() => error);
