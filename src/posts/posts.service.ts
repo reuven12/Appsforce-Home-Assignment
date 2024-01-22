@@ -2,13 +2,17 @@ import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { Observable, catchError, lastValueFrom, throwError } from 'rxjs';
-import { LocalDatabase } from './your-database-service';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { PostEntity } from './posts.entity';
+import { PostDto } from './posts.dto';
 
 @Injectable()
 export class PostsService {
   constructor(
     private readonly httpService: HttpService,
-    private readonly localDatabase: LocalDatabase,
+    @InjectRepository(PostEntity)
+    private readonly postRepository: Repository<PostEntity>,
   ) {}
 
   private readonly externalPostsApiUrl =
@@ -23,29 +27,48 @@ export class PostsService {
     );
   }
 
-  async getPostsByUserId(userId: number): Promise<any[]> {
+  async getPostsByUserId(userId: number): Promise<PostDto[]> {
     try {
-      const userPostsFromLocalDatabase =
-        await this.localDatabase.getLocalPostsByUserId(userId);
-      if (userPostsFromLocalDatabase.lenght > 0)
-        return userPostsFromLocalDatabase;
-      const localPostsFromeUser = (
+      const userPostsFromDatabase = await this.postRepository.find({
+        where: { userId },
+      });
+
+      if (userPostsFromDatabase.length > 0) {
+        return userPostsFromDatabase.map((post) => this.mapEntityToDto(post));
+      }
+
+      const localPostsFromUser = (
         await lastValueFrom(this.fetchPosts())
       ).data.filter((post) => post.userId === userId);
-      await this.localDatabase.saveLocalPostsByUserId(userId, localPostsFromeUser);
-      return localPostsFromeUser;
+
+      const entitiesToSave = localPostsFromUser
+        .map((post) => this.postRepository.create(post))
+        .flat();
+
+      await this.postRepository.save(entitiesToSave);
+
+      return localPostsFromUser.map((post) => this.mapEntityToDto(post));
     } catch (error) {
       console.error('Error in getPostsByUserId:', error);
       throw new Error('Failed to fetch posts');
     }
   }
 
-  async deletePostsById(postId: string): Promise<void> {
+  async deletePostsById(postId: number): Promise<void> {
     try {
-      await this.localDatabase.deleteLocalPostsById(postId);
+      await this.postRepository.delete(postId);
     } catch (error) {
       console.error('Error in deletePostsById:', error);
       throw new Error('Failed to delete posts');
     }
+  }
+
+  private mapEntityToDto(apiPost: any): PostDto {
+    return {
+      userId: apiPost.userId,
+      id: apiPost.id,
+      title: apiPost.title,
+      body: apiPost.body,
+    };
   }
 }

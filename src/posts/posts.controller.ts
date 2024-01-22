@@ -6,12 +6,12 @@ export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
   @Get(':id')
-  async getPostsByUser(@Param('id') id: string) {
-    return await this.postsService.deletePostsById(id);
+  async getPostsByUser(@Param('id') id: number) {
+    return await this.postsService.getPostsByUserId(id);
   }
 
   @Delete(':id')
-  async deletePostById(@Param('id') id: string) {
+  async deletePostById(@Param('id') id: number) {
     return await this.postsService.deletePostsById(id);
   }
 }
