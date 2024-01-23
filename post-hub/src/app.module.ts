@@ -22,6 +22,7 @@ import databaseConfig from '../config';
           username: configService.get('database.username'),
           password: configService.get('database.password'),
           database: configService.get('database.database'),
+          synchronize: configService.get<boolean>('database.synchronize'),
           autoLoadEntities: configService.get<boolean>('database.autoLoadEntities'),
         } as TypeOrmModuleOptions),
       inject: [ConfigService],

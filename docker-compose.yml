@@ -1,23 +1,28 @@
 version: '3'
 services:
-   mysql:
-     image: mysql:latest
-     env_file:
-       - .env
-     ports:
-       - "3306:3306"
-     volumes:
-       - mysql_data:/var/lib/mysql
+    mysql:
+      image: mysql:latest
+      env_file:
+        - .env
+      ports:
+        - "3306:3306"
+      volumes:
+        - mysql_data:/var/lib/mysql
 
-   nestjs-app:
-     image: nest-app
-     build: ./post-hub
-     ports:
-       - "2000:2000"
-     depends_on:
-       - mysql
-     env_file:
-       - .env
+    nestjs-app:
+      image: nest-app
+      build: ./post-hub
+      ports:
+        - "2000:2000"
+      depends_on:
+        - mysql
+      env_file:
+        - .env
+
+    react-app:
+      build: ./post-hub-ui
+      ports:
+        - "3000:3000"
 
 volumes:
-   mysql_data:
+    mysql_data:

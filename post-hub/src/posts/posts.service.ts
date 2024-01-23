@@ -39,7 +39,7 @@ export class PostsService {
 
       const localPostsFromUser = (
         await lastValueFrom(this.fetchPosts())
-      ).data.filter((post) => post.userId === userId);
+      ).data.filter((post:PostDto) => post.userId === Number(userId));
 
       const entitiesToSave = localPostsFromUser
         .map((post) => this.postRepository.create(post))
