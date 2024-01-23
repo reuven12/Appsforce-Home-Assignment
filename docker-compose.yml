@@ -19,10 +19,10 @@ services:
       env_file:
         - .env
 
-    react-app:
-      build: ./post-hub-ui
-      ports:
-        - "3000:3000"
+    # react-app:
+    #   build: ./post-hub-ui
+    #   ports:
+    #     - "3000:3000"
 
 volumes:
     mysql_data:
