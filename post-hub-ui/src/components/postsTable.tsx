@@ -4,17 +4,20 @@ import { Column } from 'primereact/column';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Post } from '../models/posts.interfaces';
-
+import '../assets/css/posts.css';
 interface UserPostsTableProps {
   posts: Post[];
-//   onDeletePost: (postId: number) => void;
+  setDeletePost: React.Dispatch<React.SetStateAction<Post | null>>;
 }
 
-const UserPostsTable: React.FC<UserPostsTableProps> = ({ posts }) => {
+const UserPostsTable: React.FC<UserPostsTableProps> = ({
+  posts,
+  setDeletePost,
+}) => {
   const [searchText, setSearchText] = useState<string>('');
 
-  const handleDeletePost = (postId: number) => {
-    // onDeletePost(postId);
+  const handleDeletePost = (post: Post) => {
+    setDeletePost(post);
   };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,7 +25,7 @@ const UserPostsTable: React.FC<UserPostsTableProps> = ({ posts }) => {
   };
 
   const filteredPosts = posts.filter((post) =>
-    post.title.toLowerCase().includes(searchText)
+    post.title.toLowerCase().includes(searchText),
   );
 
   return (
@@ -43,7 +46,7 @@ const UserPostsTable: React.FC<UserPostsTableProps> = ({ posts }) => {
             <Button
               icon="pi pi-trash"
               className="p-button-rounded p-button-danger"
-              onClick={() => handleDeletePost(rowData.id)}
+              onClick={() => handleDeletePost(rowData)}
             />
           )}
         />

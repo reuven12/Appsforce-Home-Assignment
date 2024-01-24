@@ -1,0 +1,25 @@
+
+.p-datatable {
+    width: 100%;
+  }
+  
+  .p-datatable thead th {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    cursor: pointer;
+  }
+  
+  .p-datatable tbody td {
+    border: 1px solid #ddd;
+  }
+  
+  .p-datatable tbody td div {
+    cursor: pointer;
+    color: #007bff;
+    text-decoration: underline;
+  }
+  
+  .p-paginator {
+    margin-top: 15px;
+  }
+  

@@ -1,0 +1,26 @@
+
+.p-inputgroup {
+    margin-bottom: 15px;
+  }
+  
+  .p-datatable {
+    width: 100%;
+  }
+  
+  .p-datatable thead th {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+  }
+  
+  .p-datatable tbody td {
+    border: 1px solid #ddd;
+  }
+  
+  .p-button-rounded {
+    margin: 0;
+  }
+  
+  .p-paginator {
+    margin-top: 15px;
+  }
+  

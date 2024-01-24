@@ -3,13 +3,19 @@ import { HttpService } from '@nestjs/axios';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { UserDto } from './users.dto';
+import { ConfigType } from '@nestjs/config';
+import { Inject } from '@nestjs/common';
+import appConfig from '../../config';
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly httpService: HttpService) {}
+  constructor(
+    private readonly httpService: HttpService,
+    @Inject(appConfig.KEY)
+    private readonly config: ConfigType<typeof appConfig>,
+  ) {}
 
-  private readonly externalUsersApiUrl =
-    'https://jsonplaceholder.typicode.com/users';
+  private readonly externalUsersApiUrl = this.config.externalUsersApiUrl;
 
   fetchUsers(): Observable<UserDto[]> {
     return this.httpService.get<any[]>(this.externalUsersApiUrl).pipe(

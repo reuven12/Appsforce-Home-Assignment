@@ -6,17 +6,21 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { PostEntity } from './posts.entity';
 import { PostDto } from './posts.dto';
+import { ConfigType } from '@nestjs/config';
+import { Inject } from '@nestjs/common';
 
+import appConfig from '../../config';
 @Injectable()
 export class PostsService {
   constructor(
     private readonly httpService: HttpService,
     @InjectRepository(PostEntity)
     private readonly postRepository: Repository<PostEntity>,
+    @Inject(appConfig.KEY)
+    private readonly config: ConfigType<typeof appConfig>,
   ) {}
 
-  private readonly externalPostsApiUrl =
-    'https://jsonplaceholder.typicode.com/posts';
+  private readonly externalPostsApiUrl = this.config.externalPostsApiUrl;
 
   fetchPosts(): Observable<AxiosResponse<any[]>> {
     return this.httpService.get<any[]>(this.externalPostsApiUrl).pipe(
@@ -39,7 +43,7 @@ export class PostsService {
 
       const localPostsFromUser = (
         await lastValueFrom(this.fetchPosts())
-      ).data.filter((post:PostDto) => post.userId === Number(userId));
+      ).data.filter((post: PostDto) => post.userId === Number(userId));
 
       const entitiesToSave = localPostsFromUser
         .map((post) => this.postRepository.create(post))

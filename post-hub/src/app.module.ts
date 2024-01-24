@@ -5,25 +5,24 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { PostsModule } from './posts/posts.module';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
-import databaseConfig from '../config';
-
+import appConfig from '../config';
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [databaseConfig],
+      load: [appConfig],
     }),
     TypeOrmModule.forRootAsync({
       useFactory: (configService: ConfigService) =>
         ({
-          type: configService.get<'mysql'>('database.type'),
-          host: configService.get('database.host'),
-          port: configService.get<number>('database.port'),
-          username: configService.get('database.username'),
-          password: configService.get('database.password'),
-          database: configService.get('database.database'),
-          synchronize: configService.get<boolean>('database.synchronize'),
-          autoLoadEntities: configService.get<boolean>('database.autoLoadEntities'),
+          type: configService.get<'mysql'>('app.database.type'),
+          host: configService.get('app.database.host'),
+          port: configService.get<number>('app.database.port'),
+          username: configService.get('app.database.username'),
+          password: configService.get('app.database.password'),
+          database: configService.get('app.database.database'),
+          synchronize: configService.get<boolean>('app.database.synchronize'),
+          autoLoadEntities: configService.get<boolean>('app.database.autoLoadEntities'),
         } as TypeOrmModuleOptions),
       inject: [ConfigService],
     }),
