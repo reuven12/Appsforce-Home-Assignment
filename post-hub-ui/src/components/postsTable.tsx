@@ -29,7 +29,7 @@ const UserPostsTable: React.FC<UserPostsTableProps> = ({
   );
 
   return (
-    <>
+    <div className="posts-page">
       <div className="p-inputgroup">
         <InputText
           placeholder="Search posts..."
@@ -51,7 +51,7 @@ const UserPostsTable: React.FC<UserPostsTableProps> = ({
           )}
         />
       </DataTable>
-    </>
+    </div>
   );
 };
 

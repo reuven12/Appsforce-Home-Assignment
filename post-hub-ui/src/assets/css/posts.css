@@ -1,26 +1,30 @@
+.posts-page {
+  margin: 50px;
+}
 
 .p-inputgroup {
-    margin-bottom: 15px;
-  }
-  
-  .p-datatable {
-    width: 100%;
-  }
-  
-  .p-datatable thead th {
-    background-color: #f0f0f0;
-    border: 1px solid #ddd;
-  }
-  
-  .p-datatable tbody td {
-    border: 1px solid #ddd;
-  }
-  
-  .p-button-rounded {
-    margin: 0;
-  }
-  
-  .p-paginator {
-    margin-top: 15px;
-  }
-  
+  width: 50%;
+  margin: auto;
+  margin-bottom: 25px;
+}
+
+.p-datatable {
+  width: 100%;
+}
+
+.p-datatable thead th {
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+}
+
+.p-datatable tbody td {
+  border: 1px solid #ddd;
+}
+
+.p-button-rounded {
+  margin: 0;
+}
+
+.p-paginator {
+  margin-top: 15px;
+}
