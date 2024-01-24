@@ -17,7 +17,8 @@ const Homepage: React.FC = () => {
   }, []);
 
   return (
-    <div>
+    <div className="users-page">
+      <h1 className="header">Users List</h1>
       <UserTable users={users} />
     </div>
   );
