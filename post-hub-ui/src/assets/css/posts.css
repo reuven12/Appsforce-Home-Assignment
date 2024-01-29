@@ -2,10 +2,50 @@
   margin: 50px;
 }
 
-.p-inputgroup {
-  width: 50%;
+.create-post-dialog {
+  display: flex;
+  width: 25%;
+  height: 42%;
   margin: auto;
+}
+
+
+.create-post-dialog .p-field {
+  margin-bottom: 20px;
+}
+.p-field .field-header {
+  font-weight: bold;
+  margin: auto;
+}
+
+.p-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.actions {
+  display: flex;
   margin-bottom: 25px;
+}
+
+.p-search-input {
+  width: 23%;
+  margin-left: auto;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+}
+
+.create-post {
+  
+  justify-content: space-between;
+  align-items: center;
+}
+
+.p-button-create-post {
+  background-color: rgb(246, 130, 5);
+  border: none;
 }
 
 .p-datatable {
