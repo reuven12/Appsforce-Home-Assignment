@@ -31,26 +31,19 @@ const UserPostsTable: React.FC<UserPostsTableProps> = ({
   return (
     <div className="posts-page">
       <div className="actions">
-        <div className="p-search-input">
-          <InputText
-            placeholder="Search posts..."
-            value={searchText}
-            onChange={handleSearchChange}
-          />
-          <Button
-            label="Search"
-            icon="pi pi-search"
-            onClick={() => {}}
-          />
-        </div>
-        <div className="create-post">
-          <Button
-            label="Create New Post"
-            icon="pi pi-plus"
-            className="p-button-create-post"
-            onClick={() => setShowCreatePostForm(true)}
-          />
-        </div>
+        <InputText
+          style={{ width: '25%' }}
+          placeholder="Search posts..."
+          value={searchText}
+          onChange={handleSearchChange}
+        />
+        <Button style={{"marginRight":"20px"}} label="Search" icon="pi pi-search" onClick={() => {}} />
+        <Button
+          className="p-button-create-post"
+          label="Create New Post"
+          icon="pi pi-plus"
+          onClick={() => setShowCreatePostForm(true)}
+        />
       </div>
       <DataTable value={filteredPosts} paginator rows={5}>
         <Column field="title" header="Title" />
@@ -66,11 +59,11 @@ const UserPostsTable: React.FC<UserPostsTableProps> = ({
         />
       </DataTable>
       {showCreatePostForm && (
-         <CreatePostForm
-           onCreatePost={onCreatePost}
-           onClose={() => setShowCreatePostForm(false)}
-         />
-       )}
+        <CreatePostForm
+          onCreatePost={onCreatePost}
+          onClose={() => setShowCreatePostForm(false)}
+        />
+      )}
     </div>
   );
 };

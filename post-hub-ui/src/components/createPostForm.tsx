@@ -39,44 +39,40 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
       visible
       onHide={onClose}
     >
-      <div className="p-fluid">
-        <div className="p-field">
-          <label className="field-header" htmlFor="title">
-            Title:
-          </label>
-          <input
-            type="text"
-            id="title"
-            name="title"
-            value={newPost.title}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className="p-field">
-          <label className="field-header" htmlFor="body">
-            Body:
-          </label>
-          <textarea
-            id="body"
-            name="body"
-            value={newPost.body}
-            onChange={handleInputChange}
-            rows={5}
-          ></textarea>
-        </div>
+      <div className="p-field">
+        <label className="field-header" htmlFor="title">
+          Title:
+        </label>
+        <input
+          name="title"
+          style={{ marginBottom: '10px', height: '30px' }}
+          type="text"
+          value={newPost.title}
+          onChange={handleInputChange}
+        />
+        <label className="field-header" htmlFor="body">
+          Body:
+        </label>
+        <textarea
+          name="body"
+          style={{ marginBottom: '10px', height: '70px' }}
+          value={newPost.body}
+          onChange={handleInputChange}
+          rows={5}
+        ></textarea>
       </div>
       <div className="p-dialog-footer">
         <Button
+          style={{ borderRadius: '6px' }}
           label="Cancel"
           icon="pi pi-times"
           onClick={onClose}
-          className="p-button-text"
         />
         <Button
+          style={{ borderRadius: '6px' }}
           label="Create"
           icon="pi pi-check"
           onClick={handleCreatePost}
-          autoFocus
         />
       </div>
     </Dialog>
