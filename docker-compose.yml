@@ -14,6 +14,7 @@ services:
     build: ./post-hub
     ports:
       - '2000:2000'
+      - '8001:8001'
     depends_on:
       - mysql
     env_file:

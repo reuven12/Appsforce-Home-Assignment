@@ -8,12 +8,13 @@ import { PostEntity } from './posts.entity';
 import { PostDto } from './posts.dto';
 import { ConfigType } from '@nestjs/config';
 import { Inject } from '@nestjs/common';
-
+import { SocketGateway } from '../socket/socket.gateway';
 import appConfig from '../../config';
 @Injectable()
 export class PostsService {
   constructor(
     private readonly httpService: HttpService,
+    private readonly socketGateway: SocketGateway,
     @InjectRepository(PostEntity)
     private readonly postRepository: Repository<PostEntity>,
     @Inject(appConfig.KEY)
@@ -50,17 +51,29 @@ export class PostsService {
         .flat();
 
       await this.postRepository.save(entitiesToSave);
-
-      return localPostsFromUser.map((post) => this.mapEntityToDto(post));
+      return entitiesToSave;
     } catch (error) {
       console.error('Error in getPostsByUserId:', error);
       throw new Error('Failed to fetch posts');
     }
   }
 
+  async createPost(post: PostDto): Promise<PostDto> {
+    try {
+      const entityToSave = this.postRepository.create(post);
+      await this.postRepository.save(entityToSave);
+      this.socketGateway.emitPostCreated(post);
+      return post;
+    } catch (error) {
+      console.error('Error in createPost:', error);
+      throw new Error('Failed to create post');
+    }
+  }
+
   async deletePostsById(postId: number): Promise<void> {
     try {
       await this.postRepository.delete(postId);
+      this.socketGateway.emitPostDeleted(postId);
     } catch (error) {
       console.error('Error in deletePostsById:', error);
       throw new Error('Failed to delete posts');

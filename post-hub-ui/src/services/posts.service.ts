@@ -10,6 +10,10 @@ export class PostsService {
       .data as Post[];
   };
 
+  static createPost = async (post: Post) => {
+    return (await HttpClient.post(`${baseUrl}${posts}`, post)).data as Post;
+  }
+
   static deletePostById = async (postId: number) => {
     return HttpClient.delete(`${baseUrl}${posts}/${postId}`);
   };

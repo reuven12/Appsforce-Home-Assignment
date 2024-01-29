@@ -9,6 +9,14 @@ export default class HttpClient {
     }
   }
 
+  static async post(url: string, body: any) {
+    try {
+      return await axios.post(url, body);
+    } catch (error: any) {
+      throw new Error(error);
+    }
+  }
+
   static async delete(url: string) {
     try {
       return await axios.delete(url);
