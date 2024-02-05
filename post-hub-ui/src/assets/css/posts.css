@@ -3,41 +3,56 @@
 }
 
 .create-post-dialog {
-  display: flex;
   width: 25%;
-  height: 50%;
+  height: 53%;
 }
 
-
-.create-post-dialog .p-field {
-  margin-bottom: 20px;
+.header-input {
+  margin-bottom: 2px;
+  text-align: left;
+  width: 77%;
 }
-.p-field .field-header {
-  font-weight: bold;
-  margin: auto;
+
+.dialog-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 35px;
+  margin-bottom: 8px;
+}
+
+.field-value,
+.body-input {
+  margin-bottom: 15px;
+  border-radius: 10px;
+  text-align: center;
+  width: 80%;
+}
+
+.body-input {
+  height: 100px;
 }
 
 .p-dialog-footer {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin: auto;
-  margin-top: 20px;
+  margin-top: 15px;
 }
 
 .p-field {
   display: flex;
+  align-items: center;
   flex-direction: column;
   margin-bottom: 20px;
   margin: auto;
-
 }
 
 .actions {
-   display: flex;
-   height: 50px;
-   margin: auto;
-   margin-bottom: 25px;
+  display: flex;
+  height: 50px;
+  margin: auto;
+  margin-bottom: 25px;
 }
 
 .p-button-create-post {
@@ -46,7 +61,6 @@
   background-color: rgb(246, 130, 5);
   border: none;
   border-radius: 8px;
-  
 }
 
 .p-datatable {

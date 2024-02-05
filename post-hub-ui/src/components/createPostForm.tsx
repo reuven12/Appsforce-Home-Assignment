@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
+import { InputText } from 'primereact/inputtext';
 import { Post } from '../models/posts.interfaces';
+import '../assets/css/posts.css';
 
 interface CreatePostFormProps {
   onCreatePost: (post: Partial<Post>) => void;
@@ -31,7 +33,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
     onCreatePost(newPost);
     onClose();
   };
-
+  const headers: (keyof Post)[] = ['title', 'body'];
   return (
     <Dialog
       className="create-post-dialog"
@@ -40,26 +42,19 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
       onHide={onClose}
     >
       <div className="p-field">
-        <label className="field-header" htmlFor="title">
-          Title:
-        </label>
-        <input
-          name="title"
-          style={{ marginBottom: '10px', height: '30px' }}
-          type="text"
-          value={newPost.title}
-          onChange={handleInputChange}
-        />
-        <label className="field-header" htmlFor="body">
-          Body:
-        </label>
-        <textarea
-          name="body"
-          style={{ marginBottom: '10px', height: '70px' }}
-          value={newPost.body}
-          onChange={handleInputChange}
-          rows={5}
-        ></textarea>
+        {headers.map((header) => (
+          <>
+            <label className="header-input" htmlFor={header}>{`${
+              header[0].toUpperCase() + header.slice(1)
+            }:`}</label>
+            <InputText
+              className={header === 'body' ? 'body-input' : 'field-value'}
+              name={header}
+              value={newPost[header] as string}
+              onChange={handleInputChange}
+            />
+          </>
+        ))}
       </div>
       <div className="p-dialog-footer">
         <Button
